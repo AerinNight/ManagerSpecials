@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <!-- System compatibility colors -->
+    <color name="colorPrimary">#1BA87D</color>
+    <color name="colorPrimaryDark">#009569</color> <!-- This colors the system status bar as shown in the mock-up -->
+    <color name="colorAccent">#0C4C93</color>
+
+    <!-- Background colors - colors pulled from mock-up via dropper tool -->
+    <color name="backgroundPrimary">#F0F0F0</color>
+    <color name="backgroundProductCard">#FFFFFF</color>
+
 </resources>
