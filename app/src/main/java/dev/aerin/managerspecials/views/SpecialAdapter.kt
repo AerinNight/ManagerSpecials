@@ -74,7 +74,6 @@ class SpecialAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == SPECIAL) {
-            Log.d("Adapter", "Binding special: ${specialsPage!!.managerSpecials[position - 1]}")
             (holder as SpecialViewHolder).bind(
                 specialsPage!!.getUnitSize(getNarrowDimensionSize()),
                 specialsPage!!.managerSpecials[position - 1] // offset -1 due to header
@@ -82,6 +81,10 @@ class SpecialAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     } // this won't get called if size=0 or specialsPage is null
 
+    /**
+     * Returns the attached RecyclerView's narrowest dimension, i.e. width in portrait and height in landscape.
+     * We'll use this to calculate the unit size of our UI, and assign the tiles' dimensions from there.
+     */
     private fun getNarrowDimensionSize(): Int {
         if (recycler != null) {
             return if (recycler!!.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -93,7 +96,22 @@ class SpecialAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return 0
     }
 }
+/*
+    I don't much like how Kotlin makes this pattern look, but essentially I've done this because the ViewHolder
+    constructor requires the View tree's root element, calling the super-constructor is required before doing anything
+    else, and attempting to in-line the view creation in the super-constructor call is even messier.
 
+    The way this pattern works is to make the constructor private and force creation through a companion function,
+    similar to Java's static methods. The companion function takes only the parent view, and constructs a fully-
+    functional element child, thus encapsulating all of the "view" logic within the ViewHolder, all it needs is the
+    element data provided to it. Then it passes the constructed view through the ViewHolder constructor, satisfying the
+    API requirements.
+
+    While doing things this way instead of making the Adapter inflate the View tree for a cleaner ViewHolder class makes
+    somewhat less sense for this adapter than others, this pattern becomes a life-saver if you're working with 3+ data
+    types all in the same recycler, such as a feed with text-only, photo, and video elements that each require separate
+    handling logic.
+ */
 class SpecialViewHolder private constructor(private val binding: ListItemSpecialBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
@@ -108,13 +126,12 @@ class SpecialViewHolder private constructor(private val binding: ListItemSpecial
     fun bind(unitSize: Int, special: Special) {
         binding.width = unitSize * special.width
         binding.height = unitSize * special.height
-
-        Log.d("Adapter", "Final bind size for special $special: ${binding.width} x ${binding.height}")
-
         binding.special = special
     }
 }
-
+/*
+    At least the super-simple text-only ViewHolders are nice and clean.  :D
+ */
 class HeaderViewHolder private constructor(root: View) : RecyclerView.ViewHolder(root) {
 
     companion object {

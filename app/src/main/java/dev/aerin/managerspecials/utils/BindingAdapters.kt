@@ -35,12 +35,18 @@ var TextView.strikethrough
         }
     }
 
+/**
+ * Adds DataBinding support for post-inflate changes to View width
+ */
 @BindingAdapter("customWidth")
 fun View.setCustomWidth(width: Int) {
     layoutParams.width = width
     requestLayout()
 }
 
+/**
+ * Adds DataBinding support for post-inflate changes to View height
+ */
 @BindingAdapter("customHeight")
 fun View.steCustomHeight(height: Int) {
     layoutParams.height = height

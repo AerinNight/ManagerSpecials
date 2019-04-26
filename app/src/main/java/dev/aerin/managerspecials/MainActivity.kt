@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        // The one downside to RecyclerViews and LayoutManagers is you can't style the LayoutManager directly in XML.
+        // The one annoyance with RecyclerViews and LayoutManagers is you can't style the LayoutManager directly in XML.
         val layoutManager = binding.productList.layoutManager as FlexboxLayoutManager
         layoutManager.flexDirection = FlexDirection.ROW
         layoutManager.justifyContent = JustifyContent.CENTER
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 }.create().show()
         }
 
-        // This listener firing means the user pulled to refresh the specials list
+        // This listener firing means the user pulled the feed downward while at the top to refresh the specials list
         binding.refreshLayout.setOnRefreshListener {
             specialsService.refresh()
         }
