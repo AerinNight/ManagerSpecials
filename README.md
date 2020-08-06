@@ -10,9 +10,9 @@ This project uses:
 * Android Studio 3.4
 * Android API 28
 
-If your Android Studio installation is up to date, these requirements
-should match what you already have installed. Older versions of Android
-Studio, Kotlin, and Gradle will likely work, though you'll need to edit
+If your Android Studio installation is up to date as of April 2019, these requirements
+should match what you already have installed. Older or newer versions of Android
+Studio, Kotlin, and Gradle will likely work, though you may need to edit
 the build.gradle files to get your project to compile.
 
 ## Project Setup
